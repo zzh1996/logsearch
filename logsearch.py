@@ -69,6 +69,6 @@ def logsearch():
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
-        app.run(sys.argv[1], sys.argv[2], threaded=True, debug=True)
+        app.run(sys.argv[1], int(sys.argv[2]), threaded=True, debug=True)
     else:
         app.run(threaded=True, debug=True)
