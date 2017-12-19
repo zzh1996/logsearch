@@ -48,11 +48,13 @@ def search(keywords, page):
 
 @app.route('/')
 def logsearch():
-    s = request.args.get('s')
+    s = request.args.get('s') or ''
     p = int(request.args.get('p') or '1')
     results = None
     previouspage = None
     nextpage = None
+    start = None
+    end = None
     if s:
         keywords = s.split()
         results, nextpage = search(keywords, p)
