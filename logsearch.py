@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, escape
 from flask_bootstrap import Bootstrap
 import os
+import sys
 
 log_path = 'log'
 context_lines = 5
@@ -67,4 +68,7 @@ def logsearch():
 
 
 if __name__ == '__main__':
-    app.run(threaded=True, debug=True)
+    if len(sys.argv) > 1:
+        app.run(sys.argv[1], sys.argv[2], threaded=True, debug=True)
+    else:
+        app.run(threaded=True, debug=True)
