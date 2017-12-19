@@ -1,0 +1,51 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/fixes.html" as fixes %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/utils.html" as util %}
+
+{% block head %}
+    {{ super() }}
+    {{ fixes.ie8() }}
+{% endblock %}
+
+{% block title %}Log Search{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Log Search</h1>
+        <form>
+            <input type="text" class="form-control" name="s" value="{{ s }}">
+        </form>
+        {% if results is not none %}
+            {% if results %}
+                <div>
+                    <span>
+                        Showing {{ start }}~{{ end }}
+                    </span>
+                    {% if previouspage %}
+                        <a class="btn btn-default" type="button" href="{{ url_for('logsearch',s=s,p=previouspage) }}">
+                            Previous Page
+                        </a>
+                    {% endif %}
+                    {% if nextpage %}
+                        <a class="btn btn-default" type="button" href="{{ url_for('logsearch',s=s,p=nextpage) }}">
+                            NextPage
+                        </a>
+                    {% endif %}
+                </div>
+                <div>
+                    <ul class="list-group">
+                        {% for r in results %}
+                            <li class="list-group-item">
+                                <pre class="list-group-item-heading">{{ r[0] }}</pre>
+                                <p class="list-group-item-text">{{ r[1]|safe }}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% else %}
+                <p>Nothing found!</p>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}
